@@ -94,5 +94,23 @@
     setInterval(actualizarContadores, 3600000);
     actualizarContadores();
 </script>
+<script>
+    $(document).ready(function() {
+        $('#tbl-convenios').DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#tbl-convenios').DataTable();
+    });
 
+    function printTable() { // Función agregada
+        var printContents = document.getElementById('tbl-convenios').outerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload(); // Para recargar la página después de imprimir
+    }
+</script>
 {% endblock %}
