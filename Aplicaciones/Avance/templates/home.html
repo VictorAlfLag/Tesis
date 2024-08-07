@@ -1,0 +1,47 @@
+{% extends './plantilla.html' %}
+{% load static %}
+{% block body %}
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5">
+        <div class="owl-carousel header-carousel position-relative">
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="{% static 'plantilla/elearning-1.0.0/img/caren.jpg' %}" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Dirección de Investigación </h5>
+                                <h1 class="display-3 text-white animated slideInDown"> Facultad de Salache</h1>
+                                <p class="fs-5 text-white mb-4 pb-2">Nos dedicamos a fomentar la innovación y el desarrollo científico, impulsando proyectos que contribuyen al avance del conocimiento y al bienestar de la sociedad.</p>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel-item position-relative">
+                <video class="img-fluid" autoplay muted loop>
+                    <source src="{% static 'plantilla/elearning-1.0.0/img/nic.mp4' %}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Bienvenidos a Nuestra Comunidad de Investigación</h5>
+                                <h1 class="display-3 text-white animated slideInDown">Direccion de Investigacion</h1>
+                                <p class="fs-5 text-white mb-4 pb-2">Les invitamos a descubrir el apasionante mundo de la investigación y el desarrollo en nuestra facultad.</p>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+     
+  
+{% endblock %}

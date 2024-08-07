@@ -1,0 +1,65 @@
+{% extends "plantilla.html" %}
+{% block body %}
+
+<style>
+    .table-bordered > :not(caption) > * > * {
+        border-width: 0 var(--bs-border-width);
+        color: rgb(0, 0, 12);
+    }
+</style>
+
+<br>
+<div class="card">
+    <div class="card-title text-center">
+        <h3><b>Listado de Proyectos</b></h3>
+    </div>
+</div>  
+<br>
+<div style="text-align: center;">
+    <a href="{% url 'nuevoProyecto' %}" class="btn btn-success">Agregar Proyecto</a>
+</div>
+<table class="table table-bordered table-striped table-hover text-center" id="tbl-proyectos"> 
+    <thead>
+        <tr>
+            <th>Id del Proyecto</th>
+            <th>Nombre del Proyecto</th>
+            <th>Docente Encargado</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Finalización</th>
+            <th>Documento</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proyecto in proyectos %}
+        <tr>
+            <td>{{ proyecto.id }}</td>
+            <td>{{ proyecto.nombre }}</td>
+            <td>{{ proyecto.docente_encargado }}</td>
+            <td>{{ proyecto.fecha_inicio }}</td>
+            <td>{{ proyecto.fecha_fin }}</td>
+            <td>
+                {% if proyecto.documento %}
+                <a href="{{ proyecto.documento.url }}" target="_blank">Ver Documento</a>
+                {% else %}
+                No disponible
+                {% endif %}
+            </td>
+            <td>{{ proyecto.estado }}</td>
+            <td>
+                <a href="{% url 'editarProyecto' proyecto.id %}" class="btn btn-warning">Editar</a>
+                <a href="{% url 'eliminarProyecto' proyecto.id %}" onclick="return confirm('¿Estás seguro de eliminar?')" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $('#tbl-proyectos').DataTable();
+    });
+</script>
+
+{% endblock %}
