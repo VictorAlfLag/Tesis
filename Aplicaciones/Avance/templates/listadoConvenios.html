@@ -49,9 +49,11 @@
             </td>
             <td>{{ convenio.estado }}</td>
             <td id="contador_{{ convenio.id }}">
-                {% with (convenio.fecha_fin - today) as dias_restantes %}
-                {{ dias_restantes.days }} días
-                {% endwith %}
+                {% if convenio.fecha_fin >= today %}
+                    {{ (convenio.fecha_fin - today).days }} días
+                {% else %}
+                    Convenio finalizado
+                {% endif %}
             </td>
             <td>
                 <a href="{% url 'editarConvenio' convenio.id %}" class="btn btn-warning">Editar</a>
