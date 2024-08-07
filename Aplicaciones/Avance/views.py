@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect
 from .models import Proyecto
 from django.contrib import messages
 from .models import Convenio
-from datetime import datetime
 from .models import Articulo
+from datetime import datetime
 
 def home(request):
-    return render(request,"home.html")  
+    return render(request, 'home.html')
+def login_view(request):
+    return render(request, 'login.html')
 
 
 def ListadoProyectos(request):
