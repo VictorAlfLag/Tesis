@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-55th6j7i%k%07l!a$=&aoc1d%h80))9#m%bwuwd)!)k5_4lx45
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'tesis-ej6i.onrender.com').split(',')
 
 
 # Application definition

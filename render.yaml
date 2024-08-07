@@ -19,7 +19,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: cineutc-sqze.onrender.com
+        value: tesis-ej6i.onrender.com
 
 
 # set DATABASE_URL=postgresql://victor:RTuE0lagjTJib2oO11Hqw5u487tMKBIJ@dpg-cqp29qqj1k6c73dbimmg-a.oregon-postgres.render.com/dbtesis_lzq1
