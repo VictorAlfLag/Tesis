@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Aplicaciones.Avance',
 ]
-
+# Configurar las URLs de redirección después del login
+LOGIN_REDIRECT_URL = '/plantilla2/'
+LOGIN_REDIRECT_URL = '/login/'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
