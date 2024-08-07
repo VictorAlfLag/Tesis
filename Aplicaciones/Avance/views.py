@@ -3,6 +3,7 @@ from .models import Proyecto
 from django.contrib import messages
 from .models import Convenio
 from datetime import datetime
+from .models import Articulo
 
 def home(request):
     return render(request,"home.html")  
@@ -116,3 +117,66 @@ def eliminarConvenio(request, id):
     convenio.delete()
     messages.success(request, "Convenio eliminado exitosamente.")
     return redirect('listado_convenios')
+
+
+
+def ListadoArticulos(request):
+    articulos = Articulo.objects.all()
+    return render(request, "listadoArticulos.html", {'articulos': articulos})
+
+def nuevoArticulo(request):
+    return render(request, 'nuevoArticulo.html')
+
+def guardarArticulo(request):
+    titulo = request.POST['titulo']
+    autor = request.POST['autor']
+    revista = request.POST['revista']
+    fecha_publicacion = request.POST['fecha_publicacion']
+    impacto_factor = request.POST['impacto_factor']
+    metrica_q = request.POST['metrica_q']
+    documento = request.FILES.get('documento')
+    link_articulo = request.POST['link_articulo']
+    Articulo.objects.create(
+        titulo=titulo,
+        autor=autor,
+        revista=revista,
+        fecha_publicacion=fecha_publicacion,
+        impacto_factor=impacto_factor,
+        metrica_q=metrica_q,
+        documento=documento,
+        link_articulo=link_articulo
+    )
+    messages.success(request, "Artículo registrado exitosamente.")
+    return redirect('listado_articulos')
+
+def editarArticulo(request, id):
+    articulo = Articulo.objects.get(id=id)
+    return render(request, 'editarArticulo.html', {'articulo': articulo})
+
+def procesoActualizarArticulo(request):
+    id = request.POST['id']
+    titulo = request.POST['titulo']
+    autor = request.POST['autor']
+    revista = request.POST['revista']
+    fecha_publicacion = request.POST['fecha_publicacion']
+    impacto_factor = request.POST['impacto_factor']
+    metrica_q = request.POST['metrica_q']
+    articulo = Articulo.objects.get(id=id)
+    articulo.titulo = titulo
+    articulo.autor = autor
+    articulo.revista = revista
+    articulo.fecha_publicacion = fecha_publicacion
+    articulo.impacto_factor = impacto_factor
+    articulo.metrica_q = metrica_q
+    if request.FILES.get('documento'):
+        articulo.documento = request.FILES.get('documento')
+    articulo.link_articulo = request.POST['link_articulo']
+    articulo.save()
+    messages.success(request, "Artículo actualizado correctamente")
+    return redirect('listado_articulos')
+
+def eliminarArticulo(request, id):
+    articulo = Articulo.objects.get(id=id)
+    articulo.delete()
+    messages.success(request, "Artículo eliminado exitosamente.")
+    return redirect('listado_articulos')

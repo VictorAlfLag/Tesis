@@ -1,0 +1,36 @@
+{% extends "plantilla.html" %}
+{% block body %}
+<h1>NUEVO ARTÍCULO</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'guardarArticulo' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for=""><b>Título:</b></label>
+                <input type="text" name="titulo" class="form-control" placeholder="Ingrese el título">
+                <label for=""><b>Autor:</b></label>
+                <input type="text" name="autor" class="form-control" placeholder="Ingrese el autor">
+                <label for=""><b>Revista:</b></label>
+                <input type="text" name="revista" class="form-control" placeholder="Ingrese la revista">
+                <label for=""><b>Fecha de Publicación:</b></label>
+                <input type="date" name="fecha_publicacion" class="form-control">
+                <label for=""><b>Impacto Factor:</b></label>
+                <input type="number" step="0.01" name="impacto_factor" class="form-control">
+                <label for=""><b>Métrica Q:</b></label>
+                <select name="metrica_q" class="form-control">
+                    <option value="Q1">Q1</option>
+                    <option value="Q2">Q2</option>
+                    <option value="Q3">Q3</option>
+                    <option value="Q4">Q4</option>
+                </select>
+                <label for=""><b>Documento:</b></label>
+                <input type="file" name="documento" id="documento" accept="application/pdf" class="form-control">
+                <label for=""><b>Link del Artículo:</b></label>
+                <input type="url" name="link_articulo" class="form-control" placeholder="Ingrese el link del artículo">
+                <br>
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

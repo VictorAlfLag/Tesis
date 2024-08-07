@@ -15,4 +15,10 @@ urlpatterns = [
     path('editarConvenio/<id>', views.editarConvenio, name='editarConvenio'),
     path('guardarConvenio/', views.guardarConvenio, name='guardarConvenio'),
     path('procesoActualizarConvenio/', views.procesoActualizarConvenio, name='procesoActualizarConvenio'),
+    #rutas de articulos
+    path('listadoArticulos/', views.ListadoArticulos, name='listado_articulos'),
+    path('eliminarArticulo/<id>', views.eliminarArticulo, name='eliminarArticulo'),
+    path('editarArticulo/<id>', views.editarArticulo, name='editarArticulo'),
+    path('guardarArticulo/', views.guardarArticulo, name='guardarArticulo'),
+    path('procesoActualizarArticulo/', views.procesoActualizarArticulo, name='procesoActualizarArticulo'),
 ]

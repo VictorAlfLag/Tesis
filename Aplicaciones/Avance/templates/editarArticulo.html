@@ -1,0 +1,37 @@
+{% extends "plantilla.html" %}
+{% block body %}
+<h1>EDITAR ARTÍCULO</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'procesoActualizarArticulo' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ articulo.id }}">
+                <label for=""><b>Título:</b></label>
+                <input type="text" name="titulo" class="form-control" value="{{ articulo.titulo }}" placeholder="Ingrese el título">
+                <label for=""><b>Autor:</b></label>
+                <input type="text" name="autor" class="form-control" value="{{ articulo.autor }}" placeholder="Ingrese el autor">
+                <label for=""><b>Revista:</b></label>
+                <input type="text" name="revista" class="form-control" value="{{ articulo.revista }}" placeholder="Ingrese la revista">
+                <label for=""><b>Fecha de Publicación:</b></label>
+                <input type="date" name="fecha_publicacion" class="form-control" value="{{ articulo.fecha_publicacion }}">
+                <label for=""><b>Impacto Factor:</b></label>
+                <input type="number" step="0.01" name="impacto_factor" class="form-control" value="{{ articulo.impacto_factor }}">
+                <label for=""><b>Métrica Q:</b></label>
+                <select name="metrica_q" class="form-control">
+                    <option value="Q1" {% if articulo.metrica_q == "Q1" %}selected{% endif %}>Q1</option>
+                    <option value="Q2" {% if articulo.metrica_q == "Q2" %}selected{% endif %}>Q2</option>
+                    <option value="Q3" {% if articulo.metrica_q == "Q3" %}selected{% endif %}>Q3</option>
+                    <option value="Q4" {% if articulo.metrica_q == "Q4" %}selected{% endif %}>Q4</option>
+                </select>
+                <label for=""><b>Documento:</b></label>
+                <input type="file" name="documento" id="documento" accept="application/pdf" class="form-control">
+                <label for=""><b>Link del Artículo:</b></label>
+                <input type="url" name="link_articulo" class="form-control" value="{{ articulo.link_articulo }}" placeholder="Ingrese el link del artículo">
+                <br>
+                <button type="submit" class="btn btn-success">Actualizar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
