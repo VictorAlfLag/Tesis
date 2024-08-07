@@ -3,7 +3,7 @@ from .models import Proyecto
 from django.contrib import messages
 from .models import Convenio
 from .models import Articulo
-from datetime import datetime
+from datetime import date, datetime
 
 def home(request):
     return render(request, 'home.html')
@@ -70,7 +70,7 @@ def ListadoConvenios(request):
     convenios = Convenio.objects.all()
     today = date.today()  # Obtiene la fecha actual
     for convenio in convenios:
-        convenio.dias_restantes = (convenio.fecha_fin - today).days  # Calcula los días restantes
+        convenio.dias_restantes = (convenio.fecha_fin - today).days 
     return render(request, "listadoConvenios.html", {'convenios': convenios, 'today': today})
 
 def nuevoConvenio(request):
