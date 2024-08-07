@@ -1,13 +1,13 @@
 databases:
   - name: servidorVictor
     plan: free
-    databaseName: dbcine
+    databaseName: dbtesis
     user: victor
 
 services:
   - type: web
     plan: free
-    name: cineUtc
+    name: Tesis
     runtime: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn cineUtc.asgi:application -k uvicorn.workers.UvicornWorker"
@@ -22,4 +22,4 @@ services:
         value: tesis-ej6i.onrender.com
 
 
-# set DATABASE_URL=postgresql://victor:RTuE0lagjTJib2oO11Hqw5u487tMKBIJ@dpg-cqp29qqj1k6c73dbimmg-a.oregon-postgres.render.com/dbtesis_lzq1
+# set DATABASE_URL=postgresql://victor:wLcbdi4IGmSVUOgnJPSvD1ZhES8dAwxE@dpg-cqpetm3qf0us73ahcnu0-a.oregon-postgres.render.com/dbtesis_bv1u
