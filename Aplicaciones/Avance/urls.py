@@ -23,4 +23,7 @@ urlpatterns = [
     path('editarArticulo/<id>', views.editarArticulo, name='editarArticulo'),
     path('guardarArticulo/', views.guardarArticulo, name='guardarArticulo'),
     path('procesoActualizarArticulo/', views.procesoActualizarArticulo, name='procesoActualizarArticulo'),
+    path('nuevoConvenio/', views.nuevoConvenio, name='nuevoConvenio'),
+    path('nuevoArticulo/', views.nuevoArticulo, name='nuevoArticulo'),
+    path('nuevoProyecto/', views.nuevoProyecto, name='nuevoProyecto'),
 ]
