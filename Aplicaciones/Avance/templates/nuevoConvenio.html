@@ -1,0 +1,30 @@
+{% extends "plantilla.html" %}
+{% block body %}
+<h1>NUEVO CONVENIO</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'guardarConvenio' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for=""><b>Nombre del Convenio:</b></label>
+                <input type="text" name="nombre_convenio" class="form-control" placeholder="Ingrese el nombre del convenio">
+                <label for=""><b>Entidad:</b></label>
+                <input type="text" name="entidad" class="form-control" placeholder="Ingrese la entidad">
+                <label for=""><b>Fecha de Inicio:</b></label>
+                <input type="date" name="fecha_inicio" class="form-control">
+                <label for=""><b>Fecha de Finalización:</b></label>
+                <input type="date" name="fecha_fin" class="form-control">
+                <label for=""><b>Documento:</b></label>
+                <input type="file" name="documento" id="documento" accept="application/pdf" class="form-control">
+                <label for=""><b>Estado:</b></label>
+                <select name="estado" class="form-control">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+                <br>
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

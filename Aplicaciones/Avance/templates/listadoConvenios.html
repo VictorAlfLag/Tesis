@@ -1,0 +1,95 @@
+{% extends "plantilla.html" %}
+{% block body %}
+
+<style>
+    .table-bordered > :not(caption) > * > * {
+        border-width: 0 var(--bs-border-width);
+        color: rgb(0, 0, 12);
+    }
+</style>
+
+<br>
+<div class="card">
+    <div class="card-title text-center">
+        <h3><b>Listado de Convenios</b></h3>
+    </div>
+</div>  
+<br>
+<div style="text-align: center;">
+    <a href="{% url 'nuevoConvenio' %}" class="btn btn-success">Agregar Convenio</a>
+</div>
+<table class="table table-bordered table-striped table-hover text-center" id="tbl-convenios"> 
+    <thead>
+        <tr>
+            <th>Id del Convenio</th>
+            <th>Nombre del Convenio</th>
+            <th>Entidad</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Finalización</th>
+            <th>Documento</th>
+            <th>Estado</th>
+            <th>Días Restantes</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for convenio in convenios %}
+        <tr>
+            <td>{{ convenio.id }}</td>
+            <td>{{ convenio.nombre_convenio }}</td>
+            <td>{{ convenio.entidad }}</td>
+            <td>{{ convenio.fecha_inicio }}</td>
+            <td>{{ convenio.fecha_fin }}</td>
+            <td>
+                {% if convenio.documento %}
+                <a href="{{ convenio.documento.url }}" target="_blank">Ver Documento</a>
+                {% else %}
+                No disponible
+                {% endif %}
+            </td>
+            <td>{{ convenio.estado }}</td>
+            <td id="contador_{{ convenio.id }}">
+                {% with (convenio.fecha_fin - today) as dias_restantes %}
+                {{ dias_restantes.days }} días
+                {% endwith %}
+            </td>
+            <td>
+                <a href="{% url 'editarConvenio' convenio.id %}" class="btn btn-warning">Editar</a>
+                <a href="{% url 'eliminarConvenio' convenio.id %}" onclick="return confirm('¿Estás seguro de eliminar?')" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $('#tbl-convenios').DataTable();
+    });
+
+    // Función para actualizar los contadores regresivos
+    function actualizarContadores() {
+        const ahora = new Date();
+        document.querySelectorAll('tr').forEach(row => {
+            const fechaFin = row.querySelector('td:nth-child(5)').textContent;
+            if (fechaFin) {
+                const fin = new Date(fechaFin);
+                const diferencia = fin - ahora;
+
+                if (diferencia > 0) {
+                    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    row.querySelector('td:nth-child(8)').textContent = `${dias} días ${horas} horas restantes`;
+                } else {
+                    row.querySelector('td:nth-child(8)').textContent = "Convenio finalizado";
+                }
+            }
+        });
+    }
+
+    // Actualiza los contadores cada hora
+    setInterval(actualizarContadores, 3600000);
+    actualizarContadores();
+</script>
+
+{% endblock %}
