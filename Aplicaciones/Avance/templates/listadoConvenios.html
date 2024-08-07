@@ -49,8 +49,8 @@
             </td>
             <td>{{ convenio.estado }}</td>
             <td id="contador_{{ convenio.id }}">
-                {% if convenio.fecha_fin >= today %}
-                    {{ (convenio.fecha_fin - today).days }} días
+                {% if convenio.dias_restantes >= 0 %}
+                    {{ convenio.dias_restantes }} días
                 {% else %}
                     Convenio finalizado
                 {% endif %}
@@ -69,21 +69,21 @@
         $('#tbl-convenios').DataTable();
     });
 
-    // Función para actualizar los contadores regresivos
+    // Función para actualizar el texto de días restantes si es necesario
     function actualizarContadores() {
         const ahora = new Date();
         document.querySelectorAll('tr').forEach(row => {
             const fechaFin = row.querySelector('td:nth-child(5)').textContent;
+            const diasCell = row.querySelector('td:nth-child(8)'); // Días restantes
             if (fechaFin) {
                 const fin = new Date(fechaFin);
                 const diferencia = fin - ahora;
 
                 if (diferencia > 0) {
                     const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-                    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    row.querySelector('td:nth-child(8)').textContent = `${dias} días ${horas} horas restantes`;
+                    diasCell.textContent = `${dias} días restantes`;
                 } else {
-                    row.querySelector('td:nth-child(8)').textContent = "Convenio finalizado";
+                    diasCell.textContent = "Convenio finalizado";
                 }
             }
         });

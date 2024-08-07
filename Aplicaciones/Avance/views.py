@@ -69,8 +69,10 @@ def eliminarProyecto(request, id):
 def ListadoConvenios(request):
     convenios = Convenio.objects.all()
     today = date.today()  # Obtiene la fecha actual
+
     for convenio in convenios:
-        convenio.dias_restantes = (convenio.fecha_fin - today).days 
+        convenio.dias_restantes = (convenio.fecha_fin - today).days  # Calcula los días restantes
+
     return render(request, "listadoConvenios.html", {'convenios': convenios, 'today': today})
 
 def nuevoConvenio(request):
