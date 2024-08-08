@@ -14,22 +14,36 @@
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
+            // Cambia los datos según tus atributos de Proyecto
             var data = google.visualization.arrayToDataTable([
-                ['Nombre', 'Precio'],
-                {% for articulo in articulos %}
-                    ['{{ articulo.nombre }}', {{ articulo.precio }}],
+                ['Estado', 'Cantidad'],
+                {% for proyectoTemporal in proyectos %}
+                    ['{{ proyectoTemporal.estado }}', 1],
                 {% endfor %}
             ]);
 
+            // Agrupando los datos por estado
+            var view = new google.visualization.DataView(data);
+            var estadoCount = {};
+            data.getFilteredRows([{column: 0}]).forEach(function(row) {
+                var estado = data.getValue(row, 0);
+                estadoCount[estado] = (estadoCount[estado] || 0) + 1;
+            });
+
+            var aggregatedData = [['Estado', 'Cantidad']];
+            for (var estado in estadoCount) {
+                aggregatedData.push([estado, estadoCount[estado]]);
+            }
+
+            var chartData = google.visualization.arrayToDataTable(aggregatedData);
+
             var options = {
-                title: 'Precios de los Artículos',
-                hAxis: {title: 'Artículo'},
-                vAxis: {title: 'Precio'},
-                legend: 'none'
+                title: 'Cantidad de Proyectos por Estado',
+                pieHole: 0.4,
             };
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(chartData, options);
         }
     </script>
 </body>

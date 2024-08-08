@@ -24,10 +24,22 @@ def chart_view(request):
 
 
 
-
 def ListadoProyectos(request):
     proyectos = Proyecto.objects.all()
-    return render(request, "listadoProyectos.html", {'proyectos': proyectos})
+    # Contar la cantidad de proyectos por estado
+    estado_count = {}
+    for proyecto in proyectos:
+        estado_count[proyecto.estado] = estado_count.get(proyecto.estado, 0) + 1
+
+    # Preparar datos para el gráfico
+    data_for_chart = [['Estado', 'Cantidad']]
+    for estado, count in estado_count.items():
+        data_for_chart.append([estado, count])
+
+    return render(request, "listadoProyectos.html", {
+        'proyectos': proyectos,
+        'data_for_chart': data_for_chart  # Pasar datos al contexto
+    })
 
 def nuevoProyecto(request):
     return render(request, 'nuevoProyecto.html')
@@ -143,18 +155,7 @@ def eliminarConvenio(request, id):
 
 def ListadoArticulos(request):
     articulos = Articulo.objects.all()
-
-    # Preparar los datos para el gráfico
-    chart_data = []
-    for articulo in articulos:
-        chart_data.append((articulo.titulo, articulo.impacto_factor))
-
-    return render(request, "listadoArticulos.html", {
-        'articulos': articulos,
-        'chart_data': chart_data
-    })
-    
-    return render(request, "listadoArticulos.html", context)
+    return render(request, "listadoArticulos.html", {'articulos': articulos})
 
 
 def nuevoArticulo(request):
@@ -214,6 +215,3 @@ def eliminarArticulo(request, id):
     messages.success(request, "Artículo eliminado exitosamente.")
     return redirect('listado_articulos')
 
-def chart_view(request):
-    # Lógica de la vista
-    return render(request, 'template_name.html', context)
