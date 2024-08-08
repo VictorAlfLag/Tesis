@@ -199,3 +199,7 @@ def eliminarArticulo(request, id):
     articulo.delete()
     messages.success(request, "Artículo eliminado exitosamente.")
     return redirect('listado_articulos')
+
+def chart_view(request):
+    # Lógica de la vista
+    return render(request, 'template_name.html', context)
