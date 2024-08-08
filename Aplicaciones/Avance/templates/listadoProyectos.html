@@ -33,24 +33,24 @@
         </tr>
     </thead>
     <tbody>
-        {% for proyecto in proyectos %}
+        {% for proyectoTemporal in proyectos %}
         <tr>
-            <td>{{ proyecto.id }}</td>
-            <td>{{ proyecto.nombre }}</td>
-            <td>{{ proyecto.docente_encargado }}</td>
-            <td>{{ proyecto.fecha_inicio }}</td>
-            <td>{{ proyecto.fecha_fin }}</td>
+            <td>{{ proyectoTemporal.id }}</td>
+            <td>{{ proyectoTemporal.nombre }}</td>
+            <td>{{ proyectoTemporal.docente_encargado }}</td>
+            <td>{{ proyectoTemporal.fecha_inicio }}</td>
+            <td>{{ proyectoTemporal.fecha_fin }}</td>
             <td>
-                {% if proyecto.documento %}
-                <a href="{{ proyecto.documento.url }}" target="_blank">Ver Documento</a>
+                {% if proyectoTemporal.documento %}
+                <a href="{{ proyectoTemporal.documento.url }}" target="_blank">Ver Documento</a>
                 {% else %}
                 No disponible
                 {% endif %}
             </td>
-            <td>{{ proyecto.estado }}</td>
+            <td>{{ proyectoTemporal.estado }}</td>
             <td>
-                <a href="{% url 'editarProyecto' proyecto.id %}" class="btn btn-warning">Editar</a>
-                <a href="{% url 'eliminarProyecto' proyecto.id %}" onclick="return confirm('¿Estás seguro de eliminar?')" class="btn btn-danger">Eliminar</a>
+                <a href="{% url 'editarProyecto' proyectoTemporal.id %}" class="btn btn-warning">Editar</a>
+                <a href="{% url 'eliminarProyecto' proyectoTemporal.id %}" onclick="return confirm('¿Estás seguro de eliminar?')" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
