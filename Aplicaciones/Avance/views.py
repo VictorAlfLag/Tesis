@@ -129,7 +129,19 @@ def eliminarConvenio(request, id):
 
 def ListadoArticulos(request):
     articulos = Articulo.objects.all()
-    return render(request, "listadoArticulos.html", {'articulos': articulos})
+
+    # Preparar los datos para Google Chart
+    chart_data = []
+    for articulo in articulos:
+        chart_data.append([articulo.titulo, articulo.impacto_factor])
+
+    context = {
+        'articulos': articulos,
+        'chart_data': chart_data,
+    }
+    
+    return render(request, "listadoArticulos.html", context)
+
 
 def nuevoArticulo(request):
     return render(request, 'nuevoArticulo.html')

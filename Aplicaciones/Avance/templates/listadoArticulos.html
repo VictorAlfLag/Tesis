@@ -2,6 +2,31 @@
 {% load static %}
 {% block body %}
 
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Elemento', 'Valor'],
+                {% for articulo in articulos %}
+                    ['{{ articulo.titulo }}', {{ articulo.impacto_factor }}],  // Usa el impacto_factor o cualquier otra métrica que desees
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Impacto de Artículos Científicos',
+                pieSliceText: 'label',
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
 <br>
 <div class="card">
     <div class="card-title text-center">
@@ -9,10 +34,14 @@
     </div>
 </div>  
 <br>
+
+<div id="piechart" style="width: 900px; height: 500px; margin: auto;"></div>
+
 <div style="text-align: center;">
     <a href="{% url 'nuevoArticulo' %}" class="btn btn-success">Agregar Artículo</a>
     <button class="btn btn-primary" onclick="printTable()">Imprimir Reporte</button>
 </div>
+
 <table class="table table-bordered table-striped table-hover text-center" id="tbl-articulos"> 
     <thead>
         <tr>
