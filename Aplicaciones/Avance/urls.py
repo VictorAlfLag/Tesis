@@ -1,7 +1,12 @@
 from django.urls import path
 from . import views
+from .views import chart_view
 
 urlpatterns = [
+
+    #GOOGLE CHARTS
+    path('chart/', chart_view, name='chart'),
+    
     path('', views.home, name='home'),  # Ruta para la página principal
     path('login/', views.login_view, name='login'),  # Ruta para la página de login
 
@@ -26,4 +31,5 @@ urlpatterns = [
     path('nuevoConvenio/', views.nuevoConvenio, name='nuevoConvenio'),
     path('nuevoArticulo/', views.nuevoArticulo, name='nuevoArticulo'),
     path('nuevoProyecto/', views.nuevoProyecto, name='nuevoProyecto'),
+
 ]
