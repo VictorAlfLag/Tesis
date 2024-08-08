@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from .models import Proyecto
 from django.contrib import messages
@@ -9,6 +10,19 @@ def home(request):
     return render(request, 'home.html')
 def login_view(request):
     return render(request, 'login.html')
+
+def chart_view(request):
+    articulos = Articulo.objects.all()  # Recupera todos los artículos de la base de datos
+
+    # Recopila datos para el gráfico (por ejemplo, título y impacto)
+    data_for_chart = [[articulo.titulo, articulo.impacto_factor] for articulo in articulos]
+
+    return render(request, 'chart.html', {
+        'articulos': articulos,
+        'data_for_chart': data_for_chart
+    })
+
+
 
 
 def ListadoProyectos(request):

@@ -1,93 +1,24 @@
-{% extends "./plantilla.html" %}
-{% load static %}
-{% block body %}
-
-<br>
-<div class="card">
-    <div class="card-title text-center">
-        <h3><b>Listado de Artículos Científicos</b></h3>
-    </div>
-</div>  
-<br>
-
-<!-- Contenedor para el gráfico de Google Charts -->
-<div id="chart_div" style="width: 900px; height: 500px; margin: auto;"></div>
-
-<div style="text-align: center;">
-    <a href="{% url 'nuevoArticulo' %}" class="btn btn-success">Agregar Artículo</a>
-    <button class="btn btn-primary" onclick="printTable()">Imprimir Reporte</button>
-</div>
-
-<table class="table table-bordered table-striped table-hover text-center" id="tbl-articulos"> 
+{% extends 'plantilla/plantilla.html' %}
+{% block content %}
+  <h1>Listado de Artículos</h1>
+  <table>
     <thead>
-        <tr>
-            <th>Id</th>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Revista</th>
-            <th>Fecha de Publicación</th>
-            <th>Impacto Factor</th>
-            <th>Métrica Q</th>
-            <th>Documento</th>
-            <th>Link del Artículo</th>
-            <th>Acciones</th>
-        </tr>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+      </tr>
     </thead>
     <tbody>
-        {% for articulo in articulos %}
+      {% for articulo in articulos %}
         <tr>
-            <td>{{ articulo.id }}</td>
-            <td>{{ articulo.titulo }}</td>
-            <td>{{ articulo.autor }}</td>
-            <td>{{ articulo.revista }}</td>
-            <td>{{ articulo.fecha_publicacion }}</td>
-            <td>{{ articulo.impacto_factor }}</td>
-            <td>{{ articulo.metrica_q }}</td>
-            <td>
-                {% if articulo.documento %}
-                <a href="{{ articulo.documento.url }}" target="_blank">Ver Documento</a>
-                {% else %}
-                No disponible
-                {% endif %}
-            </td>
-            <td><a href="{{ articulo.link_articulo }}" target="_blank">Ver Artículo</a></td>
-            <td>
-                <a href="{% url 'editarArticulo' articulo.id %}" class="btn btn-warning">Editar</a>
-                <a href="{% url 'eliminarArticulo' articulo.id %}" onclick="return confirm('¿Estás seguro de eliminar?')" class="btn btn-danger">Eliminar</a>
-            </td>
+          <td>{{ articulo.nombre }}</td>
+          <td>{{ articulo.precio }}</td>
         </tr>
-        {% endfor %}
+      {% endfor %}
     </tbody>
-</table>
+  </table>
 
-<!-- Scripts para Google Charts -->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Métrica Q', 'Impacto Factor'],
-            {% for articulo in articulos %}
-                ['{{ articulo.metrica_q }}', {{ articulo.impacto_factor }}],
-            {% endfor %}
-        ]);
-
-        var options = {
-            title: 'Impacto Factor de Artículos Científicos por Métrica Q',
-            pieHole: 0.4,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-    }
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#tbl-articulos').DataTable();
-    });
-</script>
-
+  <div style="text-align: center;">
+      <a href="{% url 'chart_view' %}" class="btn btn-primary">Ver Gráfico</a>
+  </div>
 {% endblock %}

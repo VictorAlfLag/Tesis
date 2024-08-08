@@ -33,5 +33,7 @@ urlpatterns = [
     path('nuevoConvenio/', views.nuevoConvenio, name='nuevoConvenio'),
     path('nuevoArticulo/', views.nuevoArticulo, name='nuevoArticulo'),
     path('nuevoProyecto/', views.nuevoProyecto, name='nuevoProyecto'),
+    path('chart/', chart_view, name='chart_view'),  # Nueva ruta para el gráfico
+
 
 ]
