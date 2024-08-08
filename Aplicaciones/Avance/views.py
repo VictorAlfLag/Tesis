@@ -130,15 +130,15 @@ def eliminarConvenio(request, id):
 def ListadoArticulos(request):
     articulos = Articulo.objects.all()
 
-    # Preparar los datos para Google Chart
+    # Preparar los datos para el gráfico
     chart_data = []
     for articulo in articulos:
-        chart_data.append([articulo.titulo, articulo.impacto_factor])
+        chart_data.append((articulo.titulo, articulo.impacto_factor))
 
-    context = {
+    return render(request, "listadoArticulos.html", {
         'articulos': articulos,
-        'chart_data': chart_data,
-    }
+        'chart_data': chart_data
+    })
     
     return render(request, "listadoArticulos.html", context)
 

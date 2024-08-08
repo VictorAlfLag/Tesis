@@ -3,28 +3,6 @@
 {% block body %}
 
 <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Elemento', 'Valor'],
-                {% for articulo in articulos %}
-                    ['{{ articulo.titulo }}', {{ articulo.impacto_factor }}],  // Usa el impacto_factor o cualquier otra métrica que desees
-                {% endfor %}
-            ]);
-
-            var options = {
-                title: 'Impacto de Artículos Científicos',
-                pieSliceText: 'label',
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            chart.draw(data, options);
-        }
-    </script>
 </head>
 
 <br>
@@ -83,11 +61,36 @@
         {% endfor %}
     </tbody>
 </table>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Título', 'Impacto Factor'],
+            {% for item in chart_data %}
+                ['{{ item.0 }}', {{ item.1 }}],
+            {% endfor %}
+        ]);
+
+        var options = {
+            title: 'Impacto Factor de Artículos Científicos',
+            hAxis: {title: 'Título', titleTextStyle: {color: '#333'}},
+            vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
 
 <script>
     $(document).ready(function() {
         $('#tbl-articulos').DataTable();
     });
 </script>
+
+
 
 {% endblock %}
